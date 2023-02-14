@@ -10,8 +10,7 @@ class Planta extends Model
     use HasFactory;
 
     protected $table = 'plantas';
-    protected $primaryKey = 'id_configuracion';
-
+    protected $primaryKey = 'id_config';
     protected $fillable = ['nombre_planta','tiempo_espera','tiempo_sumergido','comentarios'];
     
 }

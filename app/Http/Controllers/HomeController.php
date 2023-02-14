@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Planta;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $plantas = Planta::all();
+        return view('home', ['plantas' => $plantas]);
+    }
+    public function dashboard()
+    {
+        $plantas = Planta::all();
+        return view('dashboard', ['plantas' => $plantas]);
     }
 }
