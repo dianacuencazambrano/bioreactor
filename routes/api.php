@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('/on', [BioreactorController::class, 'onEngine'])->name('onEngine');
+Route::get('/off', [BioreactorController::class, 'offEngine'])->name('offEngine');

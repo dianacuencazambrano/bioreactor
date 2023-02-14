@@ -24,10 +24,12 @@
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
-                    <th>Tiempo Espera</th>
-                    <th>Tiempo Sumergido</th>
+                    <th>Tiempo Espera (min)</th>
+                    <th>Tiempo Sumergido (min)</th>
                     <th>Comentarios</th>
                     <th>Estado</th>
+                    <th>Accion</th>
+                    <th>Tiempo</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,18 +43,57 @@
 
                         @if ($planta->estado == 0)
                             <td>Ejecutandose</td>
+                            <td><a href="" type="button"><i class="fa fa-power-off red-icon"
+                                        aria-hidden="true"></i></a></td>
                         @else
                             <td>Inactivo</td>
+                            <td><a href="" type="button"><i class="fa fa-power-off green-icon"
+                                        aria-hidden="true"></i></a></td>
                         @endif
+                        <td>
+                            <div class="countdown"></div>
+                        </td>
                     </tr>
                 @empty
                 @endforelse
             <tbody>
         </table>
     </div>
+
 </x-app-layout>
+<script>
+    localStorage.setItem("tiempo", "0:10");
+    var timer2 = localStorage.getItem("tiempo");
+    var interval = setInterval(function() {
+        var timer = timer2.split(':');
+        //by parsing integer, I avoid all extra string processing
+        var minutes = parseInt(timer[0], 10);
+        var seconds = parseInt(timer[1], 10);
+        --seconds;
+        minutes = (seconds < 0) ? --minutes : minutes;
+        if (minutes < 0) clearInterval(interval);
+        seconds = (seconds < 0) ? 59 : seconds;
+        seconds = (seconds < 10) ? '0' + seconds : seconds;
+        //minutes = (minutes < 10) ?  minutes : minutes;
+        $('.countdown').html(minutes + ':' + seconds);
+        timer2 = minutes + ':' + seconds;
+    }, 1000);
+
+    window.onbeforeunload = function() {
+        return 'Are you sure you want to leave?';
+    };
+</script>
 <style>
     @import 'bootstrap/scss/bootstrap';
+
+    .red-icon {
+        color: red;
+    }
+
+    .green-icon {
+        color: green;
+    }
+
 
     * {
         box-sizing: border-box;
